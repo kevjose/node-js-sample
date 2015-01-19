@@ -2,12 +2,12 @@
   "name": "node-js-sample",
   "version": "0.1.0",
   "description": "A sample Node.js app using Express 4",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "dependencies": {
-     "express"    : "~4.7.2",
+    "express"    : "~4.7.2",
     "mongoose"   : "~3.6.2",
     "morgan"     : "~1.2.2",
     "body-parser": "~1.5.2",
@@ -25,9 +25,6 @@
     "heroku",
     "express"
   ],
-  "author": "Mark Pundsack",
-  "contributors": [
-    "Zeke Sikelianos <zeke@sikelianos.com> (http://zeke.sikelianos.com)"
-  ],
+  "author": "kevin Jose",
   "license": "MIT"
 }
