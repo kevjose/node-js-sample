@@ -18,6 +18,12 @@
         html                    { overflow-y:scroll; }
         body                    { padding-top:50px; }
         #todo-list              { margin-bottom:30px; }
+        
+
+        #fixed {
+            height: 400px;
+            overflow: auto;
+        }
     </style>
 
     <!-- SPELLS -->
@@ -32,23 +38,24 @@
     <div class="container">
 
         <!-- HEADER AND TODO COUNT -->
-        <div class="jumbotron text-center">
+       <!--  <div class="jumbotron text-center">
             <h1>To-do App with codeship (no toolbelt used). <span class="label label-info">{{ todos.length }}</span></h1>
-        </div>
+        </div> -->
 
         <!-- TODO LIST -->
         <div id="todo-list" class="row">
-            <div class="col-sm-4 col-sm-offset-4">
+            <div id="fixed" class="col-sm-4 col-sm-offset-4" when-scrolled="loadMoreProject()">
 
                 <!-- LOOP OVER THE TODOS IN $scope.todos -->
-                <div class="checkbox" ng-repeat="todo in todos">
+                <li class="checkbox" ng-repeat="todo in todos" >
                     <label>
                         <input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
                     </label>
-                </div>
-				<p class="text-center" ng-show="loading">
+                </li>
+				<p class="text-center" ng-show="!stopped && busy">
 					<i class="fa fa-cog fa-spin fa-3x"></i>
 				</p>
+                <!-- <button ng-click="loadMoreProject()">Load more</button> -->
 
             </div>
         </div>

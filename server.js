@@ -47,10 +47,25 @@
         });
     });
 
+    app.get('/todos/:page/:limit', function(req, res) {
+        
+        
+          var query = Todo.find()
+                    .skip(req.param("limit")*req.param("page"))
+                    .limit(req.param("limit"))
+                    .sort({ _id : -1});
+          query.exec(function(err, todos) {
+            //console.log(projects);
+            res.json(todos);
+          })
+        
+    });
+
     // create todo and send back all todos after creation
     app.post('/api/todos', function(req, res) {
 
         // create a todo, information comes from AJAX request from Angular
+        console.log(req.body.limit);
         Todo.create({
             text : req.body.text,
             done : false
@@ -59,11 +74,14 @@
                 res.send(err);
 
             // get and return all the todos after you create another
-            Todo.find(function(err, todos) {
-                if (err)
-                    res.send(err)
+            var query = Todo.find()
+                    .skip(req.body.limit*req.body.page)
+                    .limit(req.param("limit"))
+                    .sort({ _id : -1});
+              query.exec(function(err, todos) {
+                //console.log(todos);
                 res.json(todos);
-            });
+              });
         });
 
     });
