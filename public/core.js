@@ -52,7 +52,7 @@ function mainController($scope, $http,$timeout) {
     $scope.busy = false;
     $scope.stopped = false;
     $scope.page = 0;
-    $scope.limit = 20;
+    $scope.limit = 5;
     $scope.todos = [];
     
     $scope.loadMoreProject = function() {
