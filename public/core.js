@@ -1,7 +1,12 @@
 // public/core.js
 var scotchTodo = angular.module('scotchTodo',[]);
 
-function mainController($scope, $http,$timeout) {
+function mainController($scope, $http,$timeout,$window) {
+	if (!window.location.origin) {
+		  window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+		}
+		$scope.applicationURI = window.location.origin;
+	console.log($scope.applicationURI);
     $scope.formData = {};
 	$scope.loading = true;
     // when landing on the page, get all todos and show them
@@ -60,7 +65,7 @@ function mainController($scope, $http,$timeout) {
         $scope.busy = true;
         $http({
             method: "GET",
-            url: "http://localhost:8080/todos/" + $scope.page + '/' + $scope.limit,
+            url: $scope.applicationURI+"/todos/" + $scope.page + '/' + $scope.limit,
         }).success(function (data, status) {
             if (data.length === 0) {
                 $scope.stopped = true;
