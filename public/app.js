@@ -31,7 +31,7 @@ routerApp.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
     $httpProvider.interceptors.push('authInterceptor');
 });
 
-routerApp.constant('API_URL','http://todocodeship.herokuapp.com/')
+routerApp.constant('API_URL','http://todocodeship.herokuapp.com/');
 
 routerApp.controller('MainCtrl', function($scope,$http,Upload,API_URL) {
     $scope.message = 'test';
