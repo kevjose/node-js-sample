@@ -1,0 +1,44 @@
+<div class="row">
+
+    <div ng-show="isAuthenticated()" class="col-md-offset-2 col-md-8">
+
+			<div class="status-upload no-padding">
+				<form>
+					<textarea placeholder="What are you doing right now?" ng-model="postText" ></textarea>
+					<!-- <ul>
+						<li><a><i class="fa fa-music"></i></a></li>
+						<li><a><i class="fa fa-video-camera"></i></a></li>
+						<li><a><i class="fa fa-microphone"></i></a></li>
+						<li><a><i class="fa fa-picture-o"></i></a></li>
+					</ul> -->
+					<button ng-disabled="!postText" type="submit" class="btn btn-success green" ng-click="createPost(postText)"><i class="fa fa-share"></i> Share</button>
+				</form>
+			</div><!-- Status Upload  -->
+		</div><!-- Widget Area -->
+</div>
+
+<br/>
+<div class="row col-md-offset-2 col-md-8 text-info" style="text-align:center;"ng-hide="count==0">
+  You have {{count}} new posts . <a href="" ng-click="getPosts();count=0;">Click to reload</a>!!
+</div>
+<div class="row">
+	<div ng-repeat="post in posts | orderBy: '-_id'"  class="col-md-offset-2 col-md-8 repeat-animation">
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h3 class="title">{{post.text}}</h3>
+                <h5><span>Shared publicly</span> - <span>Jun 27, 2014</span> </h5>
+            </div>
+            <div class="panel-body">
+                <p>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in lobortis nisl, vitae iaculis sapien. Phasellus ultrices gravida massa luctus ornare. Suspendisse blandit quam elit, eu imperdiet neque semper.
+				</p>
+				<div class="more">
+					<a href="#" title="Title Link">
+						Read More <i class="fa fa-angle-double-right"></i>
+					</a>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,82 +1,51 @@
-<!-- index.html -->
-<!doctype html>
-
-<!-- ASSIGN OUR ANGULAR MODULE -->
-<html ng-app="scotchTodo">
+<!DOCTYPE html>
+<html>
 <head>
-    <!-- META -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- CSS (load bootstrap) -->
 
-    <title>Node/Angular Todo App with Codeship(Scotch.io)</title>
+    <link rel="stylesheet" href="css/bootstrap-superhero.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animate.css">
 
-    <!-- SCROLLS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-	
-    <style>
-        html                    { overflow-y:scroll; }
-        body                    { padding-top:50px; }
-        #todo-list              { margin-bottom:30px; }
-        
-
-        #fixed {
-            height: 400px;
-            overflow: auto;
-        }
-    </style>
-
-    <!-- SPELLS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
-    <script src="core.js"></script>
-	
-
+    <!-- JS (load angular, ui-router, and our custom js file) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.14/angular-ui-router.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-animate.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="js/ng-file-upload-shim.min.js"></script>
+    <script src="js/ng-file-upload.js"></script>
+    <script src="app.js"></script>
 </head>
-<!-- SET THE CONTROLLER AND GET ALL TODOS -->
-<body ng-controller="mainController">
+
+<!-- apply our angular app to our site -->
+<body ng-app="routerApp">
+<!-- Outermost div-->
+<div ng-cloak>
+    <!-- NAVIGATION -->
+    <nav ng-controller="HeaderCtrl" class="navbar navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="home">&copy; Kev's Blog</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li ui-sref-active="active"><a ui-sref="home">Home</a></li>
+            <li ng-show="isAuthenticated()" ui-sref-active="active"><a ui-sref="posts">Posts</a></li>
+            <li ng-hide="isAuthenticated()" ui-sref-active="active"><a ui-sref="login">Login</a></li>
+            <li ng-show="isAuthenticated()" ui-sref-active="active"><a ui-sref="logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
     <div class="container">
-
-        <!-- HEADER AND TODO COUNT -->
-       <!--  <div class="jumbotron text-center">
-            <h1>To-do App with codeship (no toolbelt used). <span class="label label-info">{{ todos.length }}</span></h1>
-        </div> -->
-
-        <!-- TODO LIST -->
-        <div id="todo-list" class="row">
-            <div id="fixed" class="col-sm-4 col-sm-offset-4" when-scrolled="loadMoreProject()">
-
-                <!-- LOOP OVER THE TODOS IN $scope.todos -->
-                <li class="checkbox" ng-repeat="todo in todos" >
-                    <label>
-                        <input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
-                    </label>
-                </li>
-				<p class="text-center" ng-show="!stopped && busy">
-					<i class="fa fa-cog fa-spin fa-3x"></i>
-				</p>
-                <!-- <button ng-click="loadMoreProject()">Load more</button> -->
-
+        <div class="row">
+            <div class="ui-view-container">
+                <div ui-view></div>
             </div>
         </div>
-
-        <!-- FORM TO CREATE TODOS -->
-        <div id="todo-form" class="row">
-            <div class="col-sm-8 col-sm-offset-2 text-center">
-                <form>
-                    <div class="form-group">
-
-                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                        <input type="text" class="form-control input-lg text-center" placeholder="Add a to-do item" ng-model="formData.text">
-                    </div>
-
-                    <!-- createToDo() WILL CREATE NEW TODOS -->
-                    <button type="submit" class="btn btn-warning btn-lg" ng-click="createTodo()">&nbsp;&nbsp;Add&nbsp;&nbsp;</button>
-                </form>
-            </div>
-        </div>
-
+        <div ng-include="'partial-alert.html'"></div>
     </div>
-
+</div>
 </body>
 </html>
